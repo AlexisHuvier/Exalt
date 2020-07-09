@@ -23,7 +23,7 @@ public class ExaltTest extends TestCase
 
         Entity e = new Entity();
         e.addComponent(new PositionComponent(0, 0));
-        e.addComponent(new SpriteComponent("resources/test.png"));
+        e.addComponent(new SpriteComponent("resources/test.png").scale(2).flipX(true).flipY(true));
         e.addComponent(new ControlComponent(ControlType.FOURDIRECTION));
         exalt.getWorld().getEntitySystem().addEntity(e);
 
