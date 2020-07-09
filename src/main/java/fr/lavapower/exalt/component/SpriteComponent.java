@@ -6,8 +6,6 @@ import fr.lavapower.exalt.render.Shader;
 import fr.lavapower.exalt.render.Texture;
 import fr.lavapower.exalt.render.models.Model;
 import fr.lavapower.exalt.render.models.Quad;
-import fr.lavapower.exalt.utils.Position;
-import fr.lavapower.exalt.utils.Size;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -16,6 +14,10 @@ public class SpriteComponent extends Component
     private final Model model = new Quad();
     private Texture texture;
     private int scale = 1;
+    private boolean visible = true;
+    private boolean flipX = false;
+    private boolean flipY = false;
+    private int rotation = 0;
 
     public SpriteComponent(String texture) {
         this.texture = new Texture(texture);
@@ -35,8 +37,27 @@ public class SpriteComponent extends Component
     public void setScale(int scale) { this.scale = scale;}
     public SpriteComponent scale(int scale) { setScale(scale); return this; }
 
+    public int getRotation() { return rotation; }
+    public void setRotation(int rotation) { this.rotation = rotation; }
+    public SpriteComponent rotation(int rotation) { setRotation(rotation); return this; }
+
+    public boolean isVisible() { return visible; }
+    public void setVisible(boolean visible) { this.visible = visible; }
+    public SpriteComponent visible(boolean visible) { setVisible(visible); return this; }
+
+    public boolean isFlipX() { return flipX; }
+    public void setFlipX(boolean flipX) { this.flipX = flipX; }
+    public SpriteComponent flipX(boolean flipX) { setFlipX(flipX); return this; }
+
+    public boolean isFlipY() { return flipY; }
+    public void setFlipY(boolean flipY) { this.flipY = flipY; }
+    public SpriteComponent flipY(boolean flipY) { setFlipY(flipY); return this; }
+
     public void render(Shader shader, Matrix4f world, Camera camera) throws IllegalComponentException
     {
+        if(!visible)
+            return;
+
         PositionComponent positionComponent = (PositionComponent) e.getComponent("PositionComponent");
 
         shader.bind();
@@ -48,6 +69,13 @@ public class SpriteComponent extends Component
         camera.getProjection().mul(world, target);
         target.mul(entityTilePos);
         target.scale(scale);
+
+        if(flipX)
+            target.scale(-1, 1, 1);
+        if(flipY)
+            target.scale(1, -1, 1);
+
+        target.rotate(-(float)(rotation * Math.PI / 180), new Vector3f(0, 0, 1));
 
         shader.setUniform("sampler", 0);
         shader.setUniform("projection", target);
