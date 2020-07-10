@@ -63,6 +63,11 @@ public class EntitySystem
         entities.add(entity);
     }
 
+    public void addEntities(Entity[] entities) {
+        for(Entity e: entities)
+            addEntity(e);
+    }
+
     public void update(float delta) throws IllegalComponentException
     {
         for(Entity e: entities) {
