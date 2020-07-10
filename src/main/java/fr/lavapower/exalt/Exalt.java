@@ -27,7 +27,7 @@ public class Exalt
     private long window;
     private float width;
     private float height;
-    private int fps_max = 60;
+    private double fps_time = 1/60.;
     private int fps = 0;
     private boolean debug = false;
     private boolean exitOnEsc = true;
@@ -103,9 +103,9 @@ public class Exalt
     }
 
     //FPS
-    public int getFPSMax() { return fps_max; }
+    public int getFPSMax() { return (int)(1/fps_time); }
     public int getCurrentFPS() { return fps; }
-    public void setFPSMax(int fpsMax) { fps_max = fpsMax; }
+    public void setFPSMax(int fpsMax) { fps_time = 1./fpsMax; }
 
     //Debug
     public boolean isDebug() { return debug; }
@@ -160,14 +160,14 @@ public class Exalt
             time = Timer.getTime();
             unprocessed += passed;
             frame_time += passed;
-            if (unprocessed >= 1./fps_max) {
-                unprocessed-=1./fps_max;
+            if (unprocessed >= fps_time) {
+                unprocessed-=fps_time;
 
                 if(input.isKeyPressed(Key.ESCAPE) && exitOnEsc) {
                     stop();
                 }
 
-                world.update((float)(1./fps_max));
+                world.update((float)(fps_time));
                 update();
 
                 if(frame_time >= 1.0) {
