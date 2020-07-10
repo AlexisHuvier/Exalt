@@ -1,6 +1,7 @@
 package fr.lavapower.exalt.entity;
 
 import fr.lavapower.exalt.World;
+import fr.lavapower.exalt.component.AnimComponent;
 import fr.lavapower.exalt.component.ControlComponent;
 import fr.lavapower.exalt.component.SpriteComponent;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
@@ -81,6 +82,8 @@ public class EntitySystem
         for(Entity e: entities) {
             if(e.hasComponent("SpriteComponent"))
                 ((SpriteComponent) e.getComponent("SpriteComponent")).render(shader, scale, camera);
+            if(e.hasComponent("AnimComponent"))
+                ((AnimComponent) e.getComponent("AnimComponent")).render(shader, scale, camera);
         }
     }
 }
