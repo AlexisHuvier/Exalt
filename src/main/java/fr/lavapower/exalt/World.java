@@ -17,7 +17,6 @@ public class World
         entitySystem = new EntitySystem();
         entitySystem.world = this;
         world = new Matrix4f().setTranslation(new Vector3f(0));
-        world.scale(16);
     }
 
     public EntitySystem getEntitySystem() {

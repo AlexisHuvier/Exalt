@@ -68,6 +68,7 @@ public class SpriteComponent extends Component
 
         camera.getProjection().mul(world, target);
         target.mul(entityTilePos);
+        target.scale(texture.getWidth(), texture.getHeight(), 1);
         target.scale(scale);
 
         if(flipX)
