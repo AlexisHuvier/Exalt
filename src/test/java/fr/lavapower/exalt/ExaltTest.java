@@ -1,5 +1,6 @@
 package fr.lavapower.exalt;
 
+import fr.lavapower.exalt.component.AnimComponent;
 import fr.lavapower.exalt.component.ControlComponent;
 import fr.lavapower.exalt.component.PositionComponent;
 import fr.lavapower.exalt.component.SpriteComponent;
@@ -23,9 +24,14 @@ public class ExaltTest extends TestCase
 
         Entity e = new Entity();
         e.addComponent(new PositionComponent(0, 0));
-        e.addComponent(new SpriteComponent("resources/test.png").scale(2).flipX(true).flipY(true));
-        e.addComponent(new ControlComponent(ControlType.FOURDIRECTION));
-        exalt.getWorld().getEntitySystem().addEntity(e);
+        e.addComponent(new SpriteComponent("resources/test.png").flipX(true).flipY(true));
+
+        Entity e1 = new Entity();
+        e1.addComponent(new PositionComponent(50, 50));
+        e1.addComponent(new AnimComponent(5, new String[]{"resources/anim0.png", "resources/anim1.png", "resources/anim2.png", "resources/anim3.png"}));
+        e1.addComponent(new ControlComponent(ControlType.FOURDIRECTION));
+
+        exalt.getWorld().getEntitySystem().addEntities(new Entity[]{e, e1});
 
         setUpIsDone = true;
     }
