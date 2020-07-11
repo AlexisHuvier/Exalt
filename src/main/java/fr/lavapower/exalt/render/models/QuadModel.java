@@ -1,14 +1,14 @@
 package fr.lavapower.exalt.render.models;
 
-public class Quad extends Model
+public class QuadModel extends Model
 {
-    public Quad() {
+    public QuadModel(int width, int height) {
         super();
         float[] vertices = new float[] {
-                -1, 1, 0, //TOP LEFT          0
-                1, 1, 0, //TOP RIGHT          1
-                1, -1, 0, // BOTTOM RIGHT     2
-                -1, -1, 0, // BOTTOM LEFT     3
+                -width, height, 0, //TOP LEFT          0
+                width, height, 0, //TOP RIGHT          1
+                width, -height, 0, // BOTTOM RIGHT     2
+                -width, -height, 0, // BOTTOM LEFT     3
         };
 
         float[] texture = new float[] {

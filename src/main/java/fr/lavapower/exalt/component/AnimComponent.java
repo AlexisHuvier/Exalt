@@ -5,14 +5,14 @@ import fr.lavapower.exalt.render.Animation;
 import fr.lavapower.exalt.render.Camera;
 import fr.lavapower.exalt.render.Shader;
 import fr.lavapower.exalt.render.models.Model;
-import fr.lavapower.exalt.render.models.Quad;
+import fr.lavapower.exalt.render.models.QuadModel;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class AnimComponent extends Component
 {
     private Animation animation;
-    private final Model model = new Quad();
+    private Model model;
     private int scale = 1;
     private boolean visible = true;
     private boolean flipX = false;
@@ -22,17 +22,21 @@ public class AnimComponent extends Component
 
     public AnimComponent(int fps, String[] textures) {
         animation = new Animation(fps, textures);
+        model = new QuadModel(animation.getCurrentTexture().getWidth(), animation.getCurrentTexture().getHeight());
     }
-
-    public String[] getTextures() { return animation.getTextures(); }
-    public void setTextures(String[] textures) { animation.setTextures(textures); }
-    public AnimComponent textures(String[] textures) { setTextures(textures); return this; }
 
     @Override
     public String[] getDependancies()
     {
         return new String[] { "PositionComponent" };
     }
+
+    public String[] getTextures() { return animation.getTextures(); }
+    public void setTextures(String[] textures) {
+        animation.setTextures(textures);
+        model = new QuadModel(animation.getCurrentTexture().getWidth(), animation.getCurrentTexture().getHeight());
+    }
+    public AnimComponent textures(String[] textures) { setTextures(textures); return this; }
 
     public int getScale() { return scale; }
     public void setScale(int scale) { this.scale = scale;}
@@ -69,7 +73,6 @@ public class AnimComponent extends Component
 
         camera.getProjection().mul(world, target);
         target.mul(entityTilePos);
-        target.scale(animation.getCurrentTexture().getWidth(), animation.getCurrentTexture().getHeight(), 1);
         target.scale(scale);
 
         if(flipX)

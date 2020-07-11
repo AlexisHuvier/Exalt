@@ -5,13 +5,13 @@ import fr.lavapower.exalt.render.Camera;
 import fr.lavapower.exalt.render.Shader;
 import fr.lavapower.exalt.render.Texture;
 import fr.lavapower.exalt.render.models.Model;
-import fr.lavapower.exalt.render.models.Quad;
+import fr.lavapower.exalt.render.models.QuadModel;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class SpriteComponent extends Component
 {
-    private final Model model = new Quad();
+    private Model model;
     private Texture texture;
     private int scale = 1;
     private boolean visible = true;
@@ -22,17 +22,21 @@ public class SpriteComponent extends Component
 
     public SpriteComponent(String texture) {
         this.texture = new Texture(texture);
+        model = new QuadModel(this.texture.getWidth(), this.texture.getHeight());
     }
-
-    public String getTexture() { return texture.getFilename(); }
-    public void setTexture(String texture) { this.texture = new Texture(texture); }
-    public SpriteComponent texture(String texture) { setTexture(texture); return this; }
 
     @Override
     public String[] getDependancies()
     {
         return new String[] { "PositionComponent" };
     }
+
+    public String getTexture() { return texture.getFilename(); }
+    public void setTexture(String texture) {
+        this.texture = new Texture(texture);
+        model = new QuadModel(this.texture.getWidth(), this.texture.getHeight());
+    }
+    public SpriteComponent texture(String texture) { setTexture(texture); return this; }
 
     public int getScale() { return scale; }
     public void setScale(int scale) { this.scale = scale;}
@@ -69,7 +73,6 @@ public class SpriteComponent extends Component
 
         camera.getProjection().mul(world, target);
         target.mul(entityTilePos);
-        target.scale(texture.getWidth(), texture.getHeight(), 1);
         target.scale(scale);
 
         if(flipX)
