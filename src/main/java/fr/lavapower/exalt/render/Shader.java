@@ -74,6 +74,12 @@ public class Shader
             glUniformMatrix4fv(location, false, buffer);
     }
 
+    public void setUniform(String name, float value) {
+        int location = glGetUniformLocation(program, name);
+        if(location != -1)
+            glUniform1f(location, value);
+    }
+
     public void bind() {
         glUseProgram(program);
     }
