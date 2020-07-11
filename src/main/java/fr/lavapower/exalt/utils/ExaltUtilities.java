@@ -12,7 +12,7 @@ import java.nio.IntBuffer;
 public class ExaltUtilities
 {
     public static int getInRange(int value, int min, int max) {
-        return Math.max(Math.min(value, min), max);
+        return Math.min(Math.max(value, min), max);
     }
 
     public static float getInRange(float value, float min, float max) {
