@@ -147,8 +147,6 @@ public class Exalt
         if(vSync)
             glfwSwapInterval(1);
 
-        Shader shader = new Shader("shader");
-
         double frame_time = 0;
         int frames = 0;
         double time = Timer.getTime();
@@ -180,7 +178,7 @@ public class Exalt
 
                 glClear(GL_COLOR_BUFFER_BIT);
 
-                world.render(shader, camera);
+                world.render(camera);
 
                 glfwSwapBuffers(window);
                 frames++;

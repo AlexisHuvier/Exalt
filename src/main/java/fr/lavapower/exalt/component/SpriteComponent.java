@@ -18,6 +18,7 @@ public class SpriteComponent extends Component
     private boolean flipX = false;
     private boolean flipY = false;
     private int rotation = 0;
+    private final Shader shader = new Shader("texture");
 
     public SpriteComponent(String texture) {
         this.texture = new Texture(texture);
@@ -53,7 +54,7 @@ public class SpriteComponent extends Component
     public void setFlipY(boolean flipY) { this.flipY = flipY; }
     public SpriteComponent flipY(boolean flipY) { setFlipY(flipY); return this; }
 
-    public void render(Shader shader, Matrix4f world, Camera camera) throws IllegalComponentException
+    public void render(Matrix4f world, Camera camera) throws IllegalComponentException
     {
         if(!visible)
             return;

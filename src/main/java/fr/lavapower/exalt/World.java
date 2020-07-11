@@ -28,8 +28,8 @@ public class World
         entitySystem.update(delta);
     }
 
-    public void render(Shader shader, Camera camera) throws IllegalComponentException
+    public void render(Camera camera) throws IllegalComponentException
     {
-        entitySystem.render(shader, world , camera);
+        entitySystem.render(world , camera);
     }
 }

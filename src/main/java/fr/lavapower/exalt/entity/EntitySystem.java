@@ -3,6 +3,7 @@ package fr.lavapower.exalt.entity;
 import fr.lavapower.exalt.World;
 import fr.lavapower.exalt.component.AnimComponent;
 import fr.lavapower.exalt.component.ControlComponent;
+import fr.lavapower.exalt.component.ShapeComponent;
 import fr.lavapower.exalt.component.SpriteComponent;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
 import fr.lavapower.exalt.render.Camera;
@@ -77,13 +78,15 @@ public class EntitySystem
         }
     }
 
-    public void render(Shader shader, Matrix4f scale, Camera camera) throws IllegalComponentException
+    public void render(Matrix4f scale, Camera camera) throws IllegalComponentException
     {
         for(Entity e: entities) {
             if(e.hasComponent("SpriteComponent"))
-                ((SpriteComponent) e.getComponent("SpriteComponent")).render(shader, scale, camera);
+                ((SpriteComponent) e.getComponent("SpriteComponent")).render(scale, camera);
             if(e.hasComponent("AnimComponent"))
-                ((AnimComponent) e.getComponent("AnimComponent")).render(shader, scale, camera);
+                ((AnimComponent) e.getComponent("AnimComponent")).render(scale, camera);
+            if(e.hasComponent("ShapeComponent"))
+                ((ShapeComponent) e.getComponent("ShapeComponent")).render(scale, camera);
         }
     }
 }
