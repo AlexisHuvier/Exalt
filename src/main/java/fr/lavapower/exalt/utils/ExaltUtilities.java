@@ -16,7 +16,7 @@ public class ExaltUtilities
     }
 
     public static float getInRange(float value, float min, float max) {
-        return Math.max(Math.min(value, min), max);
+        return Math.min(Math.max(value, min), max);
     }
 
     public static FloatBuffer createBuffer(float[] data) {

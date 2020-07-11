@@ -68,11 +68,11 @@ public class SpriteComponent extends Component
         shader.bind();
         texture.bind(0);
 
-        Matrix4f entityTilePos = new Matrix4f().translate(new Vector3f(positionComponent.x, positionComponent.y, 0));
+        Matrix4f entityPos = new Matrix4f().translate(new Vector3f(positionComponent.x, positionComponent.y, 0));
         Matrix4f target = new Matrix4f();
 
         camera.getProjection().mul(world, target);
-        target.mul(entityTilePos);
+        target.mul(entityPos);
         target.scale(scale);
 
         if(flipX)

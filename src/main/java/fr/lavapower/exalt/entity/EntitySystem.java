@@ -7,7 +7,6 @@ import fr.lavapower.exalt.component.ShapeComponent;
 import fr.lavapower.exalt.component.SpriteComponent;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
 import fr.lavapower.exalt.render.Camera;
-import fr.lavapower.exalt.render.Shader;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;

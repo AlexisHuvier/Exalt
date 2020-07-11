@@ -15,7 +15,7 @@ public class Entity
     public Entity() {
         id = -1;
         entitySystem = null;
-        components = new ArrayList<Component>();
+        components = new ArrayList<>();
     }
 
     public int getId() {

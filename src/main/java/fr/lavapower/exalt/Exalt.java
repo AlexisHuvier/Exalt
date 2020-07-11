@@ -3,12 +3,10 @@ package fr.lavapower.exalt;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
 import fr.lavapower.exalt.render.Camera;
 import fr.lavapower.exalt.input.Input;
-import fr.lavapower.exalt.render.Shader;
 import fr.lavapower.exalt.input.Key;
 import fr.lavapower.exalt.utils.Position;
 import fr.lavapower.exalt.utils.Size;
 import fr.lavapower.exalt.utils.Timer;
-import org.joml.Vector3f;
 import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -133,12 +131,6 @@ public class Exalt
     public Input getInput() { return input; }
     public void stop() { glfwSetWindowShouldClose(window, true); }
 
-    //Others private methods
-    private void update() {
-        input.update();
-        glfwPollEvents();
-    }
-
     //RUN
     public void run() throws IllegalComponentException
     {
@@ -166,7 +158,8 @@ public class Exalt
                 }
 
                 world.update((float)(fps_time));
-                update();
+                input.update();
+                glfwPollEvents();
 
                 if(frame_time >= 1.0) {
                     frame_time = 0;

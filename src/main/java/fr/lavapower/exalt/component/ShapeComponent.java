@@ -14,10 +14,6 @@ import fr.lavapower.exalt.utils.shapes.SquareShape;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import java.util.Arrays;
-
-import static org.lwjgl.opengl.GL11.*;
-
 public class ShapeComponent extends Component
 {
     private Model model;
@@ -100,11 +96,11 @@ public class ShapeComponent extends Component
 
         shader.bind();
 
-        Matrix4f entityTilePos = new Matrix4f().translate(new Vector3f(positionComponent.x, positionComponent.y, 0));
+        Matrix4f entityPos = new Matrix4f().translate(new Vector3f(positionComponent.x, positionComponent.y, 0));
         Matrix4f target = new Matrix4f();
 
         camera.getProjection().mul(world, target);
-        target.mul(entityTilePos);
+        target.mul(entityPos);
         target.scale(scale);
 
         if(flipX)

@@ -3,7 +3,6 @@ package fr.lavapower.exalt;
 import fr.lavapower.exalt.entity.EntitySystem;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
 import fr.lavapower.exalt.render.Camera;
-import fr.lavapower.exalt.render.Shader;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 

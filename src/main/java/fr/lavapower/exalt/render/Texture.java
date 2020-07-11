@@ -15,7 +15,7 @@ import java.nio.ByteBuffer;
 public class Texture
 {
     private int id;
-    private String filename;
+    private final String filename;
     private int width;
     private int height;
 
