@@ -1,14 +1,15 @@
 package fr.lavapower.exalt;
 
-import fr.lavapower.exalt.component.AnimComponent;
-import fr.lavapower.exalt.component.ControlComponent;
-import fr.lavapower.exalt.component.PositionComponent;
-import fr.lavapower.exalt.component.SpriteComponent;
+import fr.lavapower.exalt.component.*;
 import fr.lavapower.exalt.entity.Entity;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
-import fr.lavapower.exalt.utils.ControlType;
+import fr.lavapower.exalt.utils.Color;
+import fr.lavapower.exalt.utils.Colors;
+import fr.lavapower.exalt.utils.shapes.QuadShape;
+import fr.lavapower.exalt.utils.shapes.SquareShape;
 import junit.framework.*;
 
+import java.util.Arrays;
 
 public class ExaltTest extends TestCase
 {
@@ -24,14 +25,9 @@ public class ExaltTest extends TestCase
 
         Entity e = new Entity();
         e.addComponent(new PositionComponent(0, 0));
-        e.addComponent(new SpriteComponent("resources/test.png").flipX(true).flipY(true));
+        e.addComponent(new ShapeComponent(new QuadShape(10, 50)).color(Colors.BLUE.get()));
 
-        Entity e1 = new Entity();
-        e1.addComponent(new PositionComponent(50, 50));
-        e1.addComponent(new AnimComponent(5, new String[]{"resources/anim0.png", "resources/anim1.png", "resources/anim2.png", "resources/anim3.png"}));
-        e1.addComponent(new ControlComponent(ControlType.FOURDIRECTION));
-
-        exalt.getWorld().getEntitySystem().addEntities(new Entity[]{e, e1});
+        exalt.getWorld().getEntitySystem().addEntity(e);
 
         setUpIsDone = true;
     }
