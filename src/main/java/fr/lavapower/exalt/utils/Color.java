@@ -124,4 +124,10 @@ public class Color
     public float[] getFloatRGBA() {
         return new float[] {getFloatRed(), getFloatGreen(), getFloatBlue(), getFloatAlpha()};
     }
+
+    public Color darker(int time) { setRGB(getRed() + 10*time, getGreen() + 10*time, getBlue() + 10*time); return this; }
+    public Color darker() { return darker(1);}
+
+    public Color lighter(int time) { return darker(-time); }
+    public Color lighter() { return lighter(1);}
 }
