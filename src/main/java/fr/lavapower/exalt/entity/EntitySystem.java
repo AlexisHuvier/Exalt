@@ -71,21 +71,13 @@ public class EntitySystem
 
     public void update(float delta) throws IllegalComponentException
     {
-        for(Entity e: entities) {
-            if(e.hasComponent("ControlComponent"))
-                ((ControlComponent) e.getComponent("ControlComponent")).update(delta);
-        }
+        for(Entity e: entities)
+            e.update(delta);
     }
 
     public void render(Matrix4f scale, Camera camera) throws IllegalComponentException
     {
-        for(Entity e: entities) {
-            if(e.hasComponent("SpriteComponent"))
-                ((SpriteComponent) e.getComponent("SpriteComponent")).render(scale, camera);
-            if(e.hasComponent("AnimComponent"))
-                ((AnimComponent) e.getComponent("AnimComponent")).render(scale, camera);
-            if(e.hasComponent("ShapeComponent"))
-                ((ShapeComponent) e.getComponent("ShapeComponent")).render(scale, camera);
-        }
+        for(Entity e: entities)
+            e.render(scale, camera);
     }
 }

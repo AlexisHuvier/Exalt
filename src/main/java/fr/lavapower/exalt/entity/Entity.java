@@ -1,8 +1,10 @@
 package fr.lavapower.exalt.entity;
 
-import fr.lavapower.exalt.component.Component;
+import fr.lavapower.exalt.component.*;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
+import fr.lavapower.exalt.render.Camera;
 import fr.lavapower.exalt.utils.ExaltUtilities;
+import org.joml.Matrix4f;
 
 import java.util.ArrayList;
 
@@ -97,6 +99,22 @@ public class Entity
         if(!hasComponent(name))
             throw new IllegalComponentException("Entity doesn't have a "+name+" component");
         components.remove(getComponent(name));
+    }
+
+    public void update(float delta) throws IllegalComponentException
+    {
+        if(hasComponent("ControlComponent"))
+            ((ControlComponent) getComponent("ControlComponent")).update(delta);
+    }
+
+    public void render(Matrix4f scale, Camera camera) throws IllegalComponentException
+    {
+        if(hasComponent("SpriteComponent"))
+            ((SpriteComponent) getComponent("SpriteComponent")).render(scale, camera);
+        if(hasComponent("AnimComponent"))
+            ((AnimComponent) getComponent("AnimComponent")).render(scale, camera);
+        if(hasComponent("ShapeComponent"))
+            ((ShapeComponent) getComponent("ShapeComponent")).render(scale, camera);
     }
 
 }
