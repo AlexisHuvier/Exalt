@@ -22,7 +22,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Exalt
 {
     private static final GLFWErrorCallback errorCallback = GLFWErrorCallback.createThrow();
-    private GLFWWindowSizeCallback windowSizeCallback = new GLFWWindowSizeCallback()
+    private final GLFWWindowSizeCallback windowSizeCallback = new GLFWWindowSizeCallback()
     {
         @Override
         public void invoke(long argWindow, int argWidth, int argHeight)

@@ -1,15 +1,19 @@
 package fr.lavapower.exalt;
 
+import fr.lavapower.exalt.collision.CollisionInfo;
 import fr.lavapower.exalt.component.*;
 import fr.lavapower.exalt.entity.Entity;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
-import fr.lavapower.exalt.utils.ControlType;
 import junit.framework.*;
 
 public class ExaltTest extends TestCase
 {
     private static Exalt exalt;
     private static boolean setUpIsDone = false;
+
+    public void collision(CollisionInfo collisionInfo) {
+        collisionInfo.getOtherEntity().kill();
+    }
 
     protected void setUp() throws Exception {
         if(setUpIsDone) return;
@@ -19,17 +23,13 @@ public class ExaltTest extends TestCase
         exalt.center();
 
         Entity e = new Entity();
-        e.addComponent(new PositionComponent(0, 0));
-        e.addComponent(new SpriteComponent("resources/test.png"));
-        e.addComponent(new ControlComponent());
-        e.addComponent(new CollisionComponent(System.out::println));
+        e.addComponents(new PositionComponent(0, 0), new SpriteComponent("resources/test.png"), new ControlComponent(), new CollisionComponent());
 
         Entity e2 = new Entity();
-        e2.addComponent(new PositionComponent(100, 0));
-        e2.addComponent(new SpriteComponent("resources/test.png"));
-        e2.addComponent(new CollisionComponent());
+        e2.addComponents(new PositionComponent(100, 0), new SpriteComponent("resources/test.png"),
+                new CollisionComponent(collisionInfo -> collisionInfo.getMyEntity().kill()), new AutoComponent(-2, 0, 10));
 
-        exalt.getWorld().getEntitySystem().addEntities(new Entity[] {e, e2});
+        exalt.getWorld().getEntitySystem().addEntities(e, e2);
 
         setUpIsDone = true;
     }
