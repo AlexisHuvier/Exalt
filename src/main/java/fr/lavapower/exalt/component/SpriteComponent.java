@@ -32,6 +32,9 @@ public class SpriteComponent extends Component
         return new String[] { "PositionComponent" };
     }
 
+    @Override
+    public String[] getIncompatibilities() { return new String[] { "AnimComponent", "ShapeComponent" }; }
+
     public String getTexture() { return texture.getFilename(); }
     public void setTexture(String texture) {
         this.texture = new Texture(texture);

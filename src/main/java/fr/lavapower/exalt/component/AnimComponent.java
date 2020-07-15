@@ -31,6 +31,8 @@ public class AnimComponent extends Component
     {
         return new String[] { "PositionComponent" };
     }
+    @Override
+    public String[] getIncompatibilities() { return new String[] { "SpriteComponent", "ShapeComponent" }; }
 
     public String[] getTextures() { return animation.getTextures(); }
     public void setTextures(String[] textures) {
