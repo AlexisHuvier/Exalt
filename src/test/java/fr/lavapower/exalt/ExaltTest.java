@@ -3,9 +3,7 @@ package fr.lavapower.exalt;
 import fr.lavapower.exalt.component.*;
 import fr.lavapower.exalt.entity.Entity;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
-import fr.lavapower.exalt.utils.Colors;
 import fr.lavapower.exalt.utils.ControlType;
-import fr.lavapower.exalt.utils.shapes.QuadShape;
 import junit.framework.*;
 
 public class ExaltTest extends TestCase
@@ -22,10 +20,16 @@ public class ExaltTest extends TestCase
 
         Entity e = new Entity();
         e.addComponent(new PositionComponent(0, 0));
-        e.addComponent(new ShapeComponent(new QuadShape(10, 50)).color(Colors.BLUE.get().darker(10)).rotation(-50));
-        e.addComponent(new ControlComponent(ControlType.FOURDIRECTION, 50));
+        e.addComponent(new SpriteComponent("resources/test.png"));
+        e.addComponent(new ControlComponent());
+        e.addComponent(new CollisionComponent(System.out::println));
 
-        exalt.getWorld().getEntitySystem().addEntity(e);
+        Entity e2 = new Entity();
+        e2.addComponent(new PositionComponent(100, 0));
+        e2.addComponent(new SpriteComponent("resources/test.png"));
+        e2.addComponent(new CollisionComponent());
+
+        exalt.getWorld().getEntitySystem().addEntities(new Entity[] {e, e2});
 
         setUpIsDone = true;
     }
