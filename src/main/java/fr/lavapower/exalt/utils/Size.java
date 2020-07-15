@@ -1,5 +1,7 @@
 package fr.lavapower.exalt.utils;
 
+import org.joml.Vector2f;
+
 public class Size
 {
     public float width;
@@ -15,6 +17,8 @@ public class Size
         this.width = 0;
         this.height = 0;
     }
+
+    public Vector2f toVector2f() { return new Vector2f(width, height); }
 
     @Override
     public boolean equals(Object o)

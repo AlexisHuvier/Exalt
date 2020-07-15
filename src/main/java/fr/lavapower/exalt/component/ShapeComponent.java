@@ -8,6 +8,7 @@ import fr.lavapower.exalt.render.models.QuadModel;
 import fr.lavapower.exalt.render.models.SquareModel;
 import fr.lavapower.exalt.utils.Color;
 import fr.lavapower.exalt.utils.Colors;
+import fr.lavapower.exalt.utils.Size;
 import fr.lavapower.exalt.utils.shapes.QuadShape;
 import fr.lavapower.exalt.utils.shapes.Shape;
 import fr.lavapower.exalt.utils.shapes.SquareShape;
@@ -18,6 +19,7 @@ public class ShapeComponent extends Component
 {
     private Model model;
     private Color color;
+    private Shape shape;
     private int scale = 1;
     private boolean visible = true;
     private boolean flipX = false;
@@ -27,6 +29,7 @@ public class ShapeComponent extends Component
 
     public ShapeComponent(Shape shape) {
         color = Colors.WHITE.get();
+        this.shape = shape;
         switch(shape.getType()) {
             case "Quad":
                 QuadShape quadShape = (QuadShape) shape;
@@ -52,6 +55,7 @@ public class ShapeComponent extends Component
     public ShapeComponent color(Color color) { setColor(color); return this; }
 
     public void setShape(Shape shape) {
+        this.shape = shape;
         switch(shape.getType()) {
             case "Quad":
                 QuadShape quadShape = (QuadShape) shape;
@@ -66,6 +70,19 @@ public class ShapeComponent extends Component
         }
     }
     public ShapeComponent shape(Shape shape) { setShape(shape); return this; }
+
+    public Size getShapeSize() {
+        switch(shape.getType()) {
+            case "Quad":
+                QuadShape quadShape = (QuadShape) shape;
+                return new Size(quadShape.width, quadShape.height);
+            case "Square":
+                SquareShape squareShape = (SquareShape) shape;
+                return new Size(squareShape.size, squareShape.size);
+            default:
+                throw new IllegalArgumentException("Unknown Shape : "+shape.getType());
+        }
+    }
 
     public int getScale() { return scale; }
     public void setScale(int scale) { this.scale = scale;}

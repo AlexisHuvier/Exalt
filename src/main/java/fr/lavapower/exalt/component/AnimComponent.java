@@ -6,6 +6,7 @@ import fr.lavapower.exalt.render.Camera;
 import fr.lavapower.exalt.render.Shader;
 import fr.lavapower.exalt.render.models.Model;
 import fr.lavapower.exalt.render.models.QuadModel;
+import fr.lavapower.exalt.utils.Size;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -37,6 +38,7 @@ public class AnimComponent extends Component
         model = new QuadModel(animation.getCurrentTexture().getWidth(), animation.getCurrentTexture().getHeight());
     }
     public AnimComponent textures(String[] textures) { setTextures(textures); return this; }
+    public Size getTextureSize() { return animation.getCurrentTexture().getSize(); }
 
     public int getScale() { return scale; }
     public void setScale(int scale) { this.scale = scale;}

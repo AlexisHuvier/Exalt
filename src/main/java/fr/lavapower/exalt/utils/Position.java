@@ -1,5 +1,6 @@
 package fr.lavapower.exalt.utils;
 
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class Position
@@ -15,10 +16,10 @@ public class Position
     public Position(float x, float y) { init(x, y); }
     public Position() { init(0, 0);}
 
+    public Vector2f toVector2f() { return new Vector2f(x, y); }
     public Vector3f toVector3f() {
         return new Vector3f(x, y, 0);
     }
-
     public Vector3f toVector3f(int z) {
         return new Vector3f(x, y, z);
     }

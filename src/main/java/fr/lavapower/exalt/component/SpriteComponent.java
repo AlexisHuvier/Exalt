@@ -6,6 +6,7 @@ import fr.lavapower.exalt.render.Shader;
 import fr.lavapower.exalt.render.Texture;
 import fr.lavapower.exalt.render.models.Model;
 import fr.lavapower.exalt.render.models.QuadModel;
+import fr.lavapower.exalt.utils.Size;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -37,6 +38,8 @@ public class SpriteComponent extends Component
         model = new QuadModel(this.texture.getWidth(), this.texture.getHeight());
     }
     public SpriteComponent texture(String texture) { setTexture(texture); return this; }
+
+    public Size getTextureSize() { return texture.getSize(); }
 
     public int getScale() { return scale; }
     public void setScale(int scale) { this.scale = scale;}

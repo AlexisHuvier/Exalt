@@ -1,6 +1,7 @@
 package fr.lavapower.exalt.component;
 
 import fr.lavapower.exalt.entity.Entity;
+import fr.lavapower.exalt.exceptions.IllegalComponentException;
 
 public abstract class Component
 {
@@ -13,4 +14,7 @@ public abstract class Component
     public String[] getDependancies() {
         return new String[]{};
     }
+
+    public void initAfterEntitySetting() throws IllegalComponentException
+    {}
 }

@@ -7,10 +7,12 @@ import fr.lavapower.exalt.utils.ExaltUtilities;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Entity
 {
     private final ArrayList<Component> components;
+    private static final ArrayList<String> graphicsComponent = new ArrayList<>(Arrays.asList("AnimComponent", "SpriteComponent", "ShapeComponent"));
     int id;
     public EntitySystem entitySystem;
 
@@ -33,7 +35,8 @@ public class Entity
             boolean find = false;
             for(Component comp: components)
             {
-                if(ExaltUtilities.getClassName(comp).equals(depends))
+                if(ExaltUtilities.getClassName(comp).equals(depends) ||
+                        (depends.equals("GraphicComponent") && graphicsComponent.contains(ExaltUtilities.getClassName(comp))))
                 {
                     find = true;
                     break;
@@ -47,7 +50,8 @@ public class Entity
             boolean find = false;
             for(Component comp: components)
             {
-                if(comp.getClass().getName().equals(incompatible))
+                if(comp.getClass().getName().equals(incompatible) ||
+                        (incompatible.equals("GraphicComponent") && graphicsComponent.contains(ExaltUtilities.getClassName(comp))))
                 {
                     find = true;
                     break;
@@ -58,6 +62,7 @@ public class Entity
         }
 
         component.e = this;
+        component.initAfterEntitySetting();
         components.add(component);
     }
 
