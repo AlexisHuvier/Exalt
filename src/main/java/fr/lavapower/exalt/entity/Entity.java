@@ -26,6 +26,12 @@ public class Entity
         return id;
     }
 
+    public void addComponents(Component ... components) throws IllegalComponentException
+    {
+        for(Component c: components)
+            addComponent(c);
+    }
+
     public void addComponent(Component component) throws IllegalComponentException
     {
         if(component.e != null)
@@ -122,6 +128,11 @@ public class Entity
             ((AnimComponent) getComponent("AnimComponent")).render(scale, camera);
         if(hasComponent("ShapeComponent"))
             ((ShapeComponent) getComponent("ShapeComponent")).render(scale, camera);
+    }
+
+    public void kill() {
+        if(entitySystem != null)
+            entitySystem.removeEntity(this);
     }
 
 }
