@@ -1,10 +1,6 @@
 package fr.lavapower.exalt.entity;
 
 import fr.lavapower.exalt.World;
-import fr.lavapower.exalt.component.AnimComponent;
-import fr.lavapower.exalt.component.ControlComponent;
-import fr.lavapower.exalt.component.ShapeComponent;
-import fr.lavapower.exalt.component.SpriteComponent;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
 import fr.lavapower.exalt.render.Camera;
 import org.joml.Matrix4f;
@@ -14,10 +10,12 @@ import java.util.ArrayList;
 public class EntitySystem
 {
     private final ArrayList<Entity> entities;
+    private final ArrayList<Entity> entitiesMustRemove;
     public World world;
 
     public EntitySystem() {
-        entities = new ArrayList<Entity>();
+        entities = new ArrayList<>();
+        entitiesMustRemove = new ArrayList<>();
     }
 
     public ArrayList<Entity> getEntities() { return entities; }
@@ -41,15 +39,18 @@ public class EntitySystem
     }
 
     public boolean hasEntity(Entity e) {
-        if(e.id == -1)
-            return false;
+        return e.entitySystem == this;
+    }
 
-        for(Entity en: entities) {
-            if(en == e) {
-                return true;
-            }
-        }
-        return false;
+    public void removeEntity(int id) {
+        Entity e = getEntity(id);
+        if(e != null)
+            entitiesMustRemove.add(e);
+    }
+
+    public void removeEntity(Entity e) {
+        if(hasEntity(e))
+            entitiesMustRemove.add(e);
     }
 
     public void addEntity(Entity entity) {
@@ -64,7 +65,7 @@ public class EntitySystem
         entities.add(entity);
     }
 
-    public void addEntities(Entity[] entities) {
+    public void addEntities(Entity ... entities) {
         for(Entity e: entities)
             addEntity(e);
     }
@@ -73,11 +74,15 @@ public class EntitySystem
     {
         for(Entity e: entities)
             e.update(delta);
+        for(Entity e: entitiesMustRemove)
+            entities.remove(e);
+        entitiesMustRemove.clear();
     }
 
     public void render(Matrix4f scale, Camera camera) throws IllegalComponentException
     {
-        for(Entity e: entities)
+        for(Entity e: entities){
             e.render(scale, camera);
+        }
     }
 }
