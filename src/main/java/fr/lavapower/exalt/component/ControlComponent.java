@@ -27,8 +27,8 @@ public class ControlComponent extends Component
         keys.put("down", Key.DOWN);
     }
 
-    public ControlComponent() { init(ControlType.FOURDIRECTION, 7); }
-    public ControlComponent(ControlType controlType) { init(controlType, 7); }
+    public ControlComponent() { init(ControlType.FOURDIRECTION, 3); }
+    public ControlComponent(ControlType controlType) { init(controlType, 3); }
     public ControlComponent(ControlType controlType, int speed) { init(controlType, speed); }
 
     public ControlType getControlType() { return controlType; }
@@ -61,20 +61,21 @@ public class ControlComponent extends Component
         PositionComponent positionComponent = (PositionComponent) e.getComponent("PositionComponent");
         if(e.entitySystem.world.exalt.getInput().isKeyDown(keys.get("left"))) {
             if(controlType == ControlType.FOURDIRECTION || controlType == ControlType.LEFTRIGHT)
-                positionComponent.x -= speed*delta;
+                positionComponent.x -= speed;
         }
         if(e.entitySystem.world.exalt.getInput().isKeyDown(keys.get("right"))) {
             if(controlType == ControlType.FOURDIRECTION || controlType == ControlType.LEFTRIGHT)
-                positionComponent.x += speed*delta;
+                positionComponent.x += speed;
         }
         if(e.entitySystem.world.exalt.getInput().isKeyDown(keys.get("up"))) {
             if(controlType == ControlType.FOURDIRECTION || controlType == ControlType.UPDOWN)
-                positionComponent.y += speed*delta;
+                positionComponent.y += speed;
 
         }
         if(e.entitySystem.world.exalt.getInput().isKeyDown(keys.get("down"))) {
             if(controlType == ControlType.FOURDIRECTION || controlType == ControlType.UPDOWN)
-                positionComponent.y -= speed*delta;
+                positionComponent.y -= speed;
+        }
 
 
 
