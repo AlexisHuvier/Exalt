@@ -10,6 +10,7 @@ import fr.lavapower.exalt.utils.Timer;
 import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 
@@ -21,6 +22,16 @@ import static org.lwjgl.opengl.GL11.*;
 public class Exalt
 {
     private static final GLFWErrorCallback errorCallback = GLFWErrorCallback.createThrow();
+    private GLFWWindowSizeCallback windowSizeCallback = new GLFWWindowSizeCallback()
+    {
+        @Override
+        public void invoke(long argWindow, int argWidth, int argHeight)
+        {
+            width = argWidth;
+            height = argHeight;
+            hasResized = true;
+        }
+    };
 
     private long window;
     private float width;
@@ -33,6 +44,7 @@ public class Exalt
     private Input input;
     private World world;
     private Camera camera;
+    private boolean hasResized;
 
     private void init(String title, float width, float height, boolean fullscreen) {
         glfwSetErrorCallback(errorCallback);
@@ -53,9 +65,11 @@ public class Exalt
         input = new Input(window);
         world = new World();
         world.exalt = this;
+        hasResized = false;
         camera = new Camera(width, height);
         this.width = width;
         this.height = height;
+        glfwSetWindowSizeCallback(window, windowSizeCallback);
     }
 
     // Constructors
@@ -124,12 +138,11 @@ public class Exalt
         this.world = world;
     }
 
-    //Camera
-    public Camera getCamera() { return camera; }
-
     //Others publics mathods
     public Input getInput() { return input; }
     public void stop() { glfwSetWindowShouldClose(window, true); }
+    public boolean hasResized() { return hasResized; }
+    public Camera getCamera() { return camera; }
 
     //RUN
     public void run() throws IllegalComponentException
@@ -151,6 +164,10 @@ public class Exalt
             unprocessed += passed;
             frame_time += passed;
             if (unprocessed >= fps_time) {
+                if(hasResized()) {
+                    camera.setProjection(width, height);
+                    glViewport(0, 0, (int)width, (int)height);
+                }
                 unprocessed-=fps_time;
 
                 if(input.isKeyPressed(Key.ESCAPE) && exitOnEsc) {
@@ -159,6 +176,7 @@ public class Exalt
 
                 world.update((float)(fps_time));
                 input.update();
+                hasResized = false;
                 glfwPollEvents();
 
                 if(frame_time >= 1.0) {
@@ -182,5 +200,6 @@ public class Exalt
         Callbacks.glfwFreeCallbacks(window);
         glfwTerminate();
         errorCallback.free();
+        windowSizeCallback.free();
     }
 }
