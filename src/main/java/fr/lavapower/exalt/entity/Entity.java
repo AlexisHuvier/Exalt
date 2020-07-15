@@ -110,6 +110,8 @@ public class Entity
     {
         if(hasComponent("ControlComponent"))
             ((ControlComponent) getComponent("ControlComponent")).update(delta);
+        if(hasComponent("AutoComponent"))
+            ((AutoComponent) getComponent("AutoComponent")).update(delta);
     }
 
     public void render(Matrix4f scale, Camera camera) throws IllegalComponentException
