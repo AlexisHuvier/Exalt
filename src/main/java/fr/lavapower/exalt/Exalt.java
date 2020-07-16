@@ -151,6 +151,8 @@ public class Exalt
     public void run() throws IllegalComponentException
     {
         glEnable(GL_TEXTURE_2D);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         if(vSync)
             glfwSwapInterval(1);
