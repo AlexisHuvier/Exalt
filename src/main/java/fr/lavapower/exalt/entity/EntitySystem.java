@@ -85,4 +85,10 @@ public class EntitySystem
             e.render(scale, camera);
         }
     }
+
+    public void delete() throws IllegalComponentException
+    {
+        for(Entity e: entities)
+            e.delete();
+    }
 }

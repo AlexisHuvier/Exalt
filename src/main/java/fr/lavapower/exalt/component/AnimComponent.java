@@ -71,4 +71,10 @@ public class AnimComponent extends Component
 
         animation.render(world, camera, shader, positionComponent.x, positionComponent.y, scale, flipX, flipY, rotation, model);
     }
+
+    public void delete() {
+        animation.delete();
+        model.delete();
+        shader.delete();
+    }
 }

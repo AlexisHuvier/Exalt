@@ -73,4 +73,11 @@ public class SpriteComponent extends Component
         texture.render(world, camera, shader, positionComponent.x, positionComponent.y, scale, flipX, flipY, rotation, model);
 
     }
+
+    public void delete()
+    {
+        texture.delete();
+        model.delete();
+        shader.delete();
+    }
 }

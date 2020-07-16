@@ -138,4 +138,9 @@ public class ShapeComponent extends Component
         model.render();
 
     }
+
+    public void delete() {
+        model.delete();
+        shader.delete();
+    }
 }

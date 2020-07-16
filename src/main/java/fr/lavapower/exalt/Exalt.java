@@ -198,7 +198,7 @@ public class Exalt
                 frames++;
             }
         }
-
+        world.delete();
         glfwDestroyWindow(window);
         Callbacks.glfwFreeCallbacks(window);
         glfwTerminate();

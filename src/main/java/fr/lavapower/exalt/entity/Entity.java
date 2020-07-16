@@ -132,9 +132,20 @@ public class Entity
             ((TextComponent) getComponent("TextComponent")).render(scale, camera);
     }
 
-    public void kill() {
+    public void removeFromEntitySystem() {
         if(entitySystem != null)
             entitySystem.removeEntity(this);
+    }
+
+    public void delete() throws IllegalComponentException
+    {
+        removeFromEntitySystem();
+        if(hasComponent("SpriteComponent"))
+            ((SpriteComponent) getComponent("SpriteComponent")).delete();
+        if(hasComponent("AnimComponent"))
+            ((AnimComponent) getComponent("AnimComponent")).delete();
+        if(hasComponent("ShapeComponent"))
+            ((ShapeComponent) getComponent("ShapeComponent")).delete();
     }
 
 }

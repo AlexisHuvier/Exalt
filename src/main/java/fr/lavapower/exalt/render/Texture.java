@@ -114,10 +114,9 @@ public class Texture
     public int getHeight() { return height; }
     public Size getSize() { return new Size(width, height); }
 
-    protected void finalize() throws Throwable
+    public void delete()
     {
         glDeleteTextures(id);
-        super.finalize();
     }
 
     public void bind(int sampler) {

@@ -88,4 +88,9 @@ public class Animation
 
     }
 
+    public void delete() {
+        for(Texture texture: frames)
+            texture.delete();
+    }
+
 }
