@@ -1,11 +1,13 @@
 package fr.lavapower.exalt.entity;
 
 import fr.lavapower.exalt.component.*;
+import fr.lavapower.exalt.component.Component;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
 import fr.lavapower.exalt.render.Camera;
 import fr.lavapower.exalt.utils.ExaltUtilities;
 import org.joml.Matrix4f;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -128,8 +130,6 @@ public class Entity
             ((AnimComponent) getComponent("AnimComponent")).render(scale, camera);
         if(hasComponent("ShapeComponent"))
             ((ShapeComponent) getComponent("ShapeComponent")).render(scale, camera);
-        if(hasComponent("TextComponent"))
-            ((TextComponent) getComponent("TextComponent")).render(scale, camera);
     }
 
     public void removeFromEntitySystem() {

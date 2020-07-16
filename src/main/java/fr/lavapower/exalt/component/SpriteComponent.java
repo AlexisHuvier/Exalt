@@ -32,7 +32,7 @@ public class SpriteComponent extends Component
     }
 
     @Override
-    public String[] getIncompatibilities() { return new String[] { "AnimComponent", "ShapeComponent", "TextComponent" }; }
+    public String[] getIncompatibilities() { return new String[] { "AnimComponent", "ShapeComponent" }; }
 
     public String getTexture() { return texture.getFilename(); }
     public void setTexture(String texture) {

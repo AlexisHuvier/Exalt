@@ -8,7 +8,6 @@ import fr.lavapower.exalt.render.models.Model;
 import fr.lavapower.exalt.render.models.QuadModel;
 import fr.lavapower.exalt.utils.Size;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 
 public class AnimComponent extends Component
 {
@@ -32,7 +31,7 @@ public class AnimComponent extends Component
         return new String[] { "PositionComponent" };
     }
     @Override
-    public String[] getIncompatibilities() { return new String[] { "SpriteComponent", "ShapeComponent", "TextComponent" }; }
+    public String[] getIncompatibilities() { return new String[] { "SpriteComponent", "ShapeComponent" }; }
 
     public String[] getTextures() { return animation.getTextures(); }
     public void setTextures(String[] textures) {
