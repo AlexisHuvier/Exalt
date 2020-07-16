@@ -4,11 +4,7 @@ import fr.lavapower.exalt.exceptions.IllegalComponentException;
 import fr.lavapower.exalt.render.Camera;
 import fr.lavapower.exalt.input.Input;
 import fr.lavapower.exalt.input.Key;
-import fr.lavapower.exalt.render.Font;
-import fr.lavapower.exalt.utils.Colors;
-import fr.lavapower.exalt.utils.Position;
-import fr.lavapower.exalt.utils.Size;
-import fr.lavapower.exalt.utils.Timer;
+import fr.lavapower.exalt.utils.*;
 import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -16,7 +12,6 @@ import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 
-import java.io.File;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -48,8 +43,9 @@ public class Exalt
     private World world;
     private Camera camera;
     private boolean hasResized;
+    private Color backgroundColor;
 
-    private void init(String title, float width, float height, boolean fullscreen) {
+    private void init(String title, float width, float height, boolean fullscreen, Color backgroundColor) {
         glfwSetErrorCallback(errorCallback);
 
         if(!glfwInit())
@@ -72,15 +68,23 @@ public class Exalt
         camera = new Camera(width, height);
         this.width = width;
         this.height = height;
+        this.backgroundColor = backgroundColor;
+        glClearColor(backgroundColor.getFloatRed(), backgroundColor.getFloatGreen(), backgroundColor.getFloatBlue(), backgroundColor.getFloatAlpha());
         glfwSetWindowSizeCallback(window, windowSizeCallback);
     }
 
     // Constructors
-    public Exalt() { init("Exalt Window", 640, 480, false); }
-    public Exalt(String title) { init(title, 640, 480, false); }
-    public Exalt(String title, Size size) { init(title, size.width, size.height, false); }
-    public Exalt(String title, float width, float height) { init(title, width, height, false); }
-    public Exalt(String title, float width, float height, boolean fullscreen) { init(title, width, height, fullscreen); }
+    public Exalt() { init("Exalt Window", 640, 480, false, Colors.WHITE.get()); }
+    public Exalt(String title) { init(title, 640, 480, false, Colors.WHITE.get()); }
+    public Exalt(String title, boolean fullscreen) { init(title, 640, 480, fullscreen, Colors.WHITE.get()); }
+    public Exalt(String title, Color backgroundColor) { init(title, 640, 480, false, backgroundColor); }
+    public Exalt(String title, Size size) { init(title, size.width, size.height, false, Colors.WHITE.get()); }
+    public Exalt(String title, float width, float height) { init(title, width, height, false, Colors.WHITE.get()); }
+    public Exalt(String title, boolean fullscreen, Color backgroundColor) { init(title, 640, 480, fullscreen, backgroundColor); }
+    public Exalt(String title, Size size, boolean fullscreen) { init(title, size.width, size.height, fullscreen, Colors.WHITE.get()); }
+    public Exalt(String title, Size size, boolean fullscreen, Color backgroundColor) { init(title, size.width, size.height, fullscreen, backgroundColor); }
+    public Exalt(String title, float width, float height, boolean fullscreen) { init(title, width, height, fullscreen, Colors.WHITE.get()); }
+    public Exalt(String title, float width, float height, boolean fullscreen, Color backgroundColor) { init(title, width, height, fullscreen, backgroundColor); }
 
     //Size methods
     public Size getSize() { return new Size(width, height); }
@@ -91,6 +95,8 @@ public class Exalt
         this.height = height;
     }
     public void setSize(Size size) { setSize(size.width, size.height); }
+    public Exalt size(float width, float height) { setSize(width, height); return this; }
+    public Exalt size(Size size) { setSize(size); return this; }
 
     //Pos method
     public Position getPosition() {
@@ -110,29 +116,36 @@ public class Exalt
 
     public void setPosition(int x, int y) { glfwSetWindowPos(window, x, y); }
     public void setPosition(Position pos) { glfwSetWindowPos(window, (int) pos.x, (int) pos.y); }
-    public void center() {
+    public void setCenter() {
         GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         Size size = getSize();
         if(vidMode != null)
             glfwSetWindowPos(window, (int)(vidMode.width() - size.width) / 2, (int)(vidMode.height() - size.height) / 2);
     }
+    public Exalt position(int x, int y) { setPosition(x, y); return this; }
+    public Exalt position(Position pos) { setPosition(pos); return this; }
+    public Exalt center() { setCenter(); return this; }
 
     //FPS
     public int getFPSMax() { return (int)(1/fps_time); }
     public int getCurrentFPS() { return fps; }
     public void setFPSMax(int fpsMax) { fps_time = 1./fpsMax; }
+    public Exalt fpsMax(int fpsMax) { setFPSMax(fpsMax); return this; }
 
     //Debug
     public boolean isDebug() { return debug; }
     public void setDebug(boolean debug) { this.debug = debug; }
+    public Exalt debug(boolean debug) { setDebug(debug); return this; }
 
     //ExitOnEsc
     public boolean isExitOnEsc() { return exitOnEsc; }
     public void setExitOnEsc(boolean exitOnEsc) { this.exitOnEsc = exitOnEsc; }
+    public Exalt exitOnEsc(boolean exitOnEsc) {setExitOnEsc(exitOnEsc); return this; }
 
     //vSync
     public boolean isvSync() { return vSync; }
     public void setvSync(boolean vSync) { this.vSync = vSync; }
+    public Exalt vSync(boolean vSync) { setvSync(vSync); return this; }
 
     //World
     public World getWorld() { return world; }
@@ -140,6 +153,20 @@ public class Exalt
         world.exalt = this;
         this.world = world;
     }
+    public Exalt world(World world) { setWorld(world); return this; }
+
+    //BackgroundColor
+    public Color getBackgroundColor() { return backgroundColor; }
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
+        glClearColor(backgroundColor.getFloatRed(), backgroundColor.getFloatGreen(), backgroundColor.getFloatBlue(), backgroundColor.getFloatAlpha());
+    }
+    public Exalt backgroundColor(Color backgroundColor) { setBackgroundColor(backgroundColor); return this; }
+
+    //Clipboard
+    public String getClipboard() { return glfwGetClipboardString(window); }
+    public void setClipboard(String text) { glfwSetClipboardString(window, text);}
+    public Exalt clipboard(String text) { setClipboard(text); return this; }
 
     //Others publics mathods
     public Input getInput() { return input; }
