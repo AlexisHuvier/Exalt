@@ -4,6 +4,7 @@ import fr.lavapower.exalt.collision.CollisionInfo;
 import fr.lavapower.exalt.component.*;
 import fr.lavapower.exalt.entity.Entity;
 import fr.lavapower.exalt.exceptions.IllegalComponentException;
+import fr.lavapower.exalt.render.Font;
 import junit.framework.*;
 
 public class ExaltTest extends TestCase
@@ -29,7 +30,10 @@ public class ExaltTest extends TestCase
         e2.addComponents(new PositionComponent(100, 0), new SpriteComponent("resources/test.png"),
                 new CollisionComponent(collisionInfo -> collisionInfo.getMyEntity().kill()), new AutoComponent(-2, 0, 10));
 
-        exalt.getWorld().getEntitySystem().addEntities(e, e2);
+        Entity e3 = new Entity();
+        e3.addComponents(new PositionComponent(-100, -100), new TextComponent(new Font()));
+
+        exalt.getWorld().getEntitySystem().addEntities(e, e2, e3);
 
         setUpIsDone = true;
     }

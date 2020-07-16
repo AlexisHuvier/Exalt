@@ -32,7 +32,7 @@ public class AnimComponent extends Component
         return new String[] { "PositionComponent" };
     }
     @Override
-    public String[] getIncompatibilities() { return new String[] { "SpriteComponent", "ShapeComponent" }; }
+    public String[] getIncompatibilities() { return new String[] { "SpriteComponent", "ShapeComponent", "TextComponent" }; }
 
     public String[] getTextures() { return animation.getTextures(); }
     public void setTextures(String[] textures) {
@@ -69,27 +69,6 @@ public class AnimComponent extends Component
 
         PositionComponent positionComponent = (PositionComponent) e.getComponent("PositionComponent");
 
-        shader.bind();
-        animation.bind(0);
-
-        Matrix4f entityPos = new Matrix4f().translate(new Vector3f(positionComponent.x, positionComponent.y, 0));
-        Matrix4f target = new Matrix4f();
-
-        camera.getProjection().mul(world, target);
-        target.mul(entityPos);
-        target.scale(scale);
-
-        if(flipX)
-            target.scale(-1, 1, 1);
-        if(flipY)
-            target.scale(1, -1, 1);
-
-        target.rotate(-(float)(rotation * Math.PI / 180), new Vector3f(0, 0, 1));
-
-        shader.setUniform("sampler", 0);
-        shader.setUniform("projection", target);
-
-        model.render();
-
+        animation.render(world, camera, shader, positionComponent.x, positionComponent.y, scale, flipX, flipY, rotation, model);
     }
 }

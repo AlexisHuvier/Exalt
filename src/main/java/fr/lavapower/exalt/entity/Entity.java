@@ -128,6 +128,8 @@ public class Entity
             ((AnimComponent) getComponent("AnimComponent")).render(scale, camera);
         if(hasComponent("ShapeComponent"))
             ((ShapeComponent) getComponent("ShapeComponent")).render(scale, camera);
+        if(hasComponent("TextComponent"))
+            ((TextComponent) getComponent("TextComponent")).render(scale, camera);
     }
 
     public void kill() {

@@ -50,7 +50,7 @@ public class ShapeComponent extends Component
         return new String[] { "PositionComponent" };
     }
     @Override
-    public String[] getIncompatibilities() { return new String[] { "AnimComponent", "SpriteComponent" }; }
+    public String[] getIncompatibilities() { return new String[] { "AnimComponent", "SpriteComponent", "TextComponent" }; }
 
     public Color getColor() { return color; }
     public void setColor(Color color) { this.color = color; }

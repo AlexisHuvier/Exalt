@@ -4,6 +4,8 @@ import fr.lavapower.exalt.exceptions.IllegalComponentException;
 import fr.lavapower.exalt.render.Camera;
 import fr.lavapower.exalt.input.Input;
 import fr.lavapower.exalt.input.Key;
+import fr.lavapower.exalt.render.Font;
+import fr.lavapower.exalt.utils.Colors;
 import fr.lavapower.exalt.utils.Position;
 import fr.lavapower.exalt.utils.Size;
 import fr.lavapower.exalt.utils.Timer;
@@ -14,6 +16,7 @@ import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 
+import java.io.File;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;

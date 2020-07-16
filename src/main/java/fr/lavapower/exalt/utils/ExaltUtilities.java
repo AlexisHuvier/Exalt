@@ -2,12 +2,11 @@ package fr.lavapower.exalt.utils;
 
 import org.lwjgl.BufferUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.channels.FileChannel;
 
 public class ExaltUtilities
 {
@@ -47,6 +46,17 @@ public class ExaltUtilities
             e.printStackTrace();
         }
         return string.toString();
+    }
+
+    public static ByteBuffer loadFileToByteBuffer(File file) throws IOException
+    {
+        ByteBuffer buffer;
+        try (FileInputStream fis = new FileInputStream(file);
+                FileChannel fc = fis.getChannel();)
+        {
+            buffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+        }
+        return buffer;
     }
 
     public static String getClassName(Object o) {
